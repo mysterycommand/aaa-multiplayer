@@ -1,16 +1,16 @@
 import { AppProps } from "$fresh/server.ts";
 
-export default function App({ Component }: AppProps) {
-  return (
-    <html>
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>temp</title>
-      </head>
-      <body>
-        <Component />
-      </body>
-    </html>
-  );
-}
+const App = ({ Component }: AppProps) => (
+  <html>
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>AAA Multiplayer for Web Apps (and Games)</title>
+    </head>
+    <body>
+      <Component />
+    </body>
+  </html>
+);
+
+export default App;
