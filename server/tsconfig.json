@@ -2,12 +2,13 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     /* If transpiling with TypeScript: */
-    "outDir": "../dist/server",
+    "outDir": "../dist",
     "sourceMap": true,
 
     /* If your code doesn't run in the DOM: */
     "lib": ["es2022"],
 
     "types": ["node"]
-  }
+  },
+  "include": [".", "../shared"]
 }

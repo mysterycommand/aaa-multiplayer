@@ -16,5 +16,6 @@
     /* If transpiling with TypeScript: */
     "moduleResolution": "NodeNext",
     "module": "NodeNext"
-  }
+  },
+  "exclude": ["node_modules", "dist"]
 }

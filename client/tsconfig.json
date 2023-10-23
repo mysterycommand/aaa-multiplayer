@@ -10,5 +10,6 @@
     "lib": ["es2022", "dom", "dom.iterable"],
 
     "types": []
-  }
+  },
+  "include": [".", "../shared"]
 }

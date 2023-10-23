@@ -19,11 +19,7 @@
     "build:client": "parcel build --target client",
     "build:server": "tsc -b server/tsconfig.json",
     "build": "concurrently \"npm:build:*\"",
-    "start": "node dist/server/index.js",
-    "preview:client": "serve dist/client",
-    "preview:server": "npm start",
-    "preview": "concurrently \"npm:preview:*\"",
-    "prepreview": "npm run build"
+    "start": "node dist/server/index.js"
   },
   "keywords": [
     "Codemotion Milan 2023",
@@ -39,6 +35,7 @@
   "dependencies": {
     "evt": "^2.5.3",
     "immer": "^10.0.3",
+    "node-datachannel": "^0.5.0",
     "ws": "^8.14.2",
     "zustand": "^4.4.4"
   },
@@ -48,7 +45,6 @@
     "concurrently": "^8.2.2",
     "nodemon": "^3.0.1",
     "parcel": "^2.10.0",
-    "serve": "^14.2.1",
     "typescript": "^5.2.2"
   }
 }
