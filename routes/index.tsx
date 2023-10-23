@@ -5,4 +5,5 @@ const Index = () => (
     <Negotiate />
   </main>
 );
+
 export default Index;
