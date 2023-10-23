@@ -1,12 +1,20 @@
 {
   "name": "aaa-multiplayer",
   "version": "1.0.0",
-  "description": "### Matthew Hayes",
-  "main": "index.js",
+  "description": "AAA Multiplayer for Web Apps (and Games)",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "Codemotion Milan 2023",
+    "WebRTC",
+    "WebSocket",
+    "Software Architectures",
+    "Game Dev",
+    "JavaScript",
+    "TypeScript"
+  ],
+  "author": "Matt Hayes <matt@mysterycommand.com>",
+  "license": "MIT"
 }
