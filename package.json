@@ -2,9 +2,28 @@
   "name": "aaa-multiplayer",
   "version": "1.0.0",
   "description": "AAA Multiplayer for Web Apps (and Games)",
+  "private": true,
   "type": "module",
+  "targets": {
+    "client": {
+      "source": "client/index.html",
+      "distDir": "dist/client"
+    }
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:client": "parcel --target client",
+    "dev:server-watch": "tsc -b server/tsconfig.json --watch --preserveWatchOutput",
+    "dev:server-restart": "nodemon",
+    "dev": "concurrently \"npm:dev:*\"",
+    "build:client": "parcel build --target client",
+    "build:server": "tsc -b server/tsconfig.json",
+    "build": "concurrently \"npm:build:*\"",
+    "start": "node dist/server/index.js",
+    "preview:client": "serve dist/client",
+    "preview:server": "npm start",
+    "preview": "concurrently \"npm:preview:*\"",
+    "prepreview": "npm run build"
   },
   "keywords": [
     "Codemotion Milan 2023",
@@ -16,5 +35,20 @@
     "TypeScript"
   ],
   "author": "Matt Hayes <matt@mysterycommand.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "evt": "^2.5.3",
+    "immer": "^10.0.3",
+    "ws": "^8.14.2",
+    "zustand": "^4.4.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.7",
+    "@types/ws": "^8.5.8",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.1",
+    "parcel": "^2.10.0",
+    "serve": "^14.2.1",
+    "typescript": "^5.2.2"
+  }
 }
