@@ -13,10 +13,51 @@ export const reducer: Reducer = (state, action) => {
         );
       }
 
+      if (action.meta.source === "client") {
+        state.self = action.meta.clientId;
+      }
+
       state.clients || (state.clients = {});
-      (state.clients as { [key: string]: Json })[action.meta.clientId] = {
+      state.clients[action.meta.clientId] = {
         pointers: {},
       };
+      return;
+    }
+
+    case "pointerstart":
+    case "pointermove": {
+      if (!action.meta.clientId) {
+        throw new Error(
+          `"connect" action requires ClientMeta, but got ${action.meta}`,
+        );
+      }
+
+      const { pointerId, pointerType, isDown, x, y } = action.payload;
+
+      state.clients || (state.clients = {});
+      state.clients[action.meta.clientId] ||
+        (state.clients[action.meta.clientId] = {
+          pointers: {},
+        });
+      state.clients[action.meta.clientId]!.pointers[pointerId] = {
+        pointerId,
+        pointerType,
+        isDown,
+        x,
+        y,
+      };
+      return;
+    }
+
+    case "pointerend": {
+      if (!action.meta.clientId) {
+        throw new Error(
+          `"connect" action requires ClientMeta, but got ${action.meta}`,
+        );
+      }
+
+      const { pointerId } = action.payload;
+      delete state.clients[action.meta.clientId]?.pointers[pointerId];
       return;
     }
   }
