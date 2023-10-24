@@ -1,27 +1,11 @@
 import { current } from "immer";
-import mergeWith from "lodash-es/mergeWith.js";
+import merge from "lodash-es/merge.js";
 import type { Action, Enhancer, State } from "./types.js";
 
 const isSettledBy = (a: Action, b: Action): boolean =>
   a.type === b.type &&
   a.meta.clientId === b.meta.clientId &&
   a.meta.clientActionIndex === b.meta.clientActionIndex;
-
-const removeMissing = (obj: any, src: any) => {
-  if (Array.isArray(obj)) {
-    obj.length = src.length;
-  }
-
-  if (typeof obj === "object") {
-    Object.keys(obj).forEach((key) => {
-      if (!src[key]) {
-        delete obj[key];
-      }
-    });
-  }
-
-  return src;
-};
 
 export const withRollback: Enhancer = (reducer) => {
   type Pair = [State, Action];
@@ -70,6 +54,19 @@ export const withRollback: Enhancer = (reducer) => {
 
     // apply the latest pending state
     const next = pendingPairs.at(-1)?.[0] ?? settledPairs.at(-1)![0];
-    mergeWith(draft, next, removeMissing);
+    merge(draft, next);
+
+    Object.entries(draft.clients).forEach(([clientId, client]) => {
+      if (!next.clients[clientId]) {
+        delete draft.clients[clientId];
+        return;
+      }
+
+      Object.keys(client.pointers).forEach((pointerId) => {
+        if (!next.clients[clientId]?.pointers[pointerId]) {
+          delete draft.clients[clientId]?.pointers[pointerId];
+        }
+      });
+    });
   };
 };
