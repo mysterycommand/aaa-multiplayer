@@ -40,8 +40,12 @@ export type SyncAction = BaseAction & {
   type: "sync";
 };
 
+export type ConnectAction = BaseAction & {
+  type: "connect";
+};
+
 export type State = { [key: string]: Json };
-export type Action = RandomizeAction | SyncAction;
+export type Action = RandomizeAction | SyncAction | ConnectAction;
 
 export type Reducer = (state: State, action: Action) => void;
 export type Enhancer = (reducer: Reducer) => Reducer;

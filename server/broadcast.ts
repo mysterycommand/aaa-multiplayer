@@ -1,6 +1,9 @@
 import type { Action } from "../shared/state/types.js";
 
-export const broadcast = (channels: Set<RTCDataChannel>, action: Action) => {
+export const broadcast = (
+  channels: Iterable<RTCDataChannel>,
+  action: Action,
+) => {
   // store.dispatch(action);
 
   const actionJson = JSON.stringify(action);

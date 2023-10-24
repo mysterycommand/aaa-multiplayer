@@ -38,7 +38,7 @@ Evt.from<WebSocket>(wsServer, "connection").attach(async (ws) => {
 
       Evt.merge([
         Evt.from<Event>(channel, "close"),
-        Evt.from<RTCErrorEvent>(channel, "error"),
+        Evt.from<Event>(channel, "error"),
       ]).attachOnce(() => channels.delete(channel));
 
       Evt.from<MessageEvent>(channel, "message").attach(({ data }) => {
@@ -60,7 +60,7 @@ Evt.from<WebSocket>(wsServer, "connection").attach(async (ws) => {
         );
       }
 
-      channel.send(JSON.stringify(createAction("sync", null)));
+      broadcast([channel], createAction("sync"));
     },
   );
 });

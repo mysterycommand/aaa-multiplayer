@@ -3,7 +3,7 @@ import type { Action, ClientMeta, Json } from "../shared/state/types.js";
 let actionIndex = 0;
 export const createAction = (
   type: Action["type"],
-  payload: Json,
+  payload?: Json,
   meta?: ClientMeta,
 ): Action => ({
   type,
