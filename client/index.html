@@ -12,6 +12,12 @@
         height: 100%;
       }
 
+      html {
+        overscroll-behavior: none;
+        touch-action: none;
+        /* cursor: none; */
+      }
+
       body {
         font-family: monospace;
         margin: 0;
@@ -33,7 +39,17 @@
         box-shadow:
           0.25rem 0.25rem 0 rgb(255, 92, 2),
           0.25rem 0.25rem 0 0.5px black;
+
         pointer-events: none;
+        user-select: none;
+      }
+
+      svg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
       }
     </style>
   </head>
