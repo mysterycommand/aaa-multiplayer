@@ -25,15 +25,18 @@
 
       main {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
 
         background: rgb(10, 122, 243);
       }
 
+      svg,
       h1,
-      svg {
+      h2 {
         pointer-events: none;
+        user-select: none;
       }
 
       h1 {
@@ -44,8 +47,12 @@
         box-shadow:
           0.25rem 0.25rem 0 rgb(255, 92, 2),
           0.25rem 0.25rem 0 0.5px black;
+      }
 
-        user-select: none;
+      h2 {
+        color: white;
+        background: black;
+        padding: 0.5rem;
       }
 
       svg {

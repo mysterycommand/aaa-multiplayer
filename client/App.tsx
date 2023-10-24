@@ -38,6 +38,7 @@ export const App: FC = () => {
           )}
       </svg>
       <h1>AAA Multiplayer</h1>
+      <h2>{location.href}</h2>
     </>
   );
 };
