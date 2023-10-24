@@ -11,7 +11,7 @@ export const negotiate = (
     RTCSessionDescription,
   }: {
     RTCSessionDescription: typeof globalThis.RTCSessionDescription;
-  }
+  },
 ) => {
   let isOffering = false;
 
@@ -20,7 +20,7 @@ export const negotiate = (
     Evt.from<Event>(pc, "signallingstatechange"),
   ]).attach(
     (event) =>
-      isDebug && console.log(event.type, pc.signalingState, pc.connectionState)
+      isDebug && console.log(event.type, pc.signalingState, pc.connectionState),
   );
 
   /**
@@ -54,7 +54,7 @@ export const negotiate = (
       if (candidate === null) return;
 
       ws.send(JSON.stringify({ candidate }));
-    }
+    },
   );
 
   Evt.from<RTCPeerConnectionIceEvent>(pc, "iceconnectionstatechange").attach(
@@ -64,7 +64,7 @@ export const negotiate = (
       if (pc.iceConnectionState === "failed") {
         pc.restartIce();
       }
-    }
+    },
   );
 
   /**

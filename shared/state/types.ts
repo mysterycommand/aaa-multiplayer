@@ -18,18 +18,13 @@ export type ServerMeta = BaseMeta &
 
 export type Meta = ClientMeta | ServerMeta;
 
-export type BaseAction<T> = T extends void
-  ? {
-      type: string;
-      meta: Meta;
-    }
-  : {
-      type: string;
-      meta: Meta;
-      payload: T;
-    };
+export type BaseAction = {
+  type: string;
+  meta: Meta;
+  payload?: Json;
+};
 
-export type RandomizeAction = BaseAction<void> & {
+export type RandomizeAction = BaseAction & {
   type: "randomize";
 };
 
@@ -41,7 +36,7 @@ export type Json =
   | Json[]
   | { [key: string]: Json };
 
-export type SyncAction = BaseAction<Json> & {
+export type SyncAction = BaseAction & {
   type: "sync";
 };
 

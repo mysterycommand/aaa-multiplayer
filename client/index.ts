@@ -8,7 +8,7 @@ const createPeerConnection = () => new RTCPeerConnection(rtcConfiguration);
 
 const { hostname, protocol } = location;
 const ws = createWebSocket(
-  `${protocol.replace("http", "ws")}//${hostname}:8080`
+  `${protocol.replace("http", "ws")}//${hostname}:8080`,
 );
 const pc = createPeerConnection();
 

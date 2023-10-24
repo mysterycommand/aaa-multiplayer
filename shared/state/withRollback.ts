@@ -9,7 +9,7 @@ export const withRollback: Enhancer = (reducer) => {
       reducer(state, action);
       pendingActions.set(
         `${action.meta.clientActionIndex}::${action.meta.clientId}`,
-        action
+        action,
       );
       return;
     }
