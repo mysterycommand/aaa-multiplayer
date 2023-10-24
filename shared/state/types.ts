@@ -52,6 +52,10 @@ export type ConnectAction = BaseAction & {
   type: "connect";
 };
 
+export type DisconnectAction = BaseAction & {
+  type: "disconnect";
+};
+
 export type Pointer = {
   pointerId: number;
   pointerType: string;
@@ -89,6 +93,7 @@ export type Action =
   | RandomizeAction
   | SyncAction
   | ConnectAction
+  | DisconnectAction
   | PointerStartAction
   | PointerMoveAction
   | PointerEndAction;

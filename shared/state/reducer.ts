@@ -24,6 +24,21 @@ export const reducer: Reducer = (state, action) => {
       return;
     }
 
+    case "disconnect": {
+      if (!action.meta.clientId) {
+        throw new Error(
+          `"connect" action requires ClientMeta, but got ${action.meta}`,
+        );
+      }
+
+      if (action.meta.source === "client") {
+        delete state.self;
+      }
+
+      delete state.clients[action.meta.clientId];
+      return;
+    }
+
     case "pointerstart":
     case "pointermove": {
       if (!action.meta.clientId) {

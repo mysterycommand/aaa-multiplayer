@@ -23,13 +23,18 @@ Evt.from<Event>(ws, "open").attachOnce(async () => {
 
   const clientSend = (action: Action) => {
     useStore.dispatch(action);
-    channel.send(JSON.stringify(action));
+    if (channel.readyState === "open") {
+      channel.send(JSON.stringify(action));
+    }
   };
 
   Evt.merge([
+    Evt.from<Event>(window, "unload"),
     Evt.from<Event>(channel, "close"),
     Evt.from<Event>(channel, "error"),
-  ]).attachOnce(console.error);
+  ]).attachOnce(() => {
+    clientSend(createAction("disconnect"));
+  });
 
   Evt.from<MessageEvent>(channel, "message").attach(({ data }) => {
     if (typeof data !== "string") {
