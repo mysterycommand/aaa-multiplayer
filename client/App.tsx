@@ -29,10 +29,10 @@ export const App: FC = () => {
                   `translate(${x + width / 2} ${y + height / 2})`,
                   `rotate(${90 + Math.atan2(-y, -x) * (180 / Math.PI)})`,
                 ].join(" ")}
-                d="M0,0 L8,20 L0,16 L-8,20 Z"
+                d="M0,0 L12,24 L0,18 L-12,24 Z"
                 fill={clientId === self ? `#${clientId}` : "transparent"}
-                strokeWidth={clientId === self ? 0 : "2px"}
-                stroke={`#${clientId}`}
+                stroke={clientId === self ? "white" : `#${clientId}`}
+                strokeWidth="3px"
               />
             )),
           )}

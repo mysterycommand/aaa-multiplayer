@@ -35,7 +35,7 @@ export const reducer: Reducer = (state, action) => {
         delete state.self;
       }
 
-      delete state.clients[action.meta.clientId];
+      delete state.clients?.[action.meta.clientId];
       return;
     }
 
@@ -72,7 +72,7 @@ export const reducer: Reducer = (state, action) => {
       }
 
       const { pointerId } = action.payload;
-      delete state.clients[action.meta.clientId]?.pointers[pointerId];
+      delete state.clients?.[action.meta.clientId]?.pointers[pointerId];
       return;
     }
   }
