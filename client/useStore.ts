@@ -13,7 +13,7 @@ declare global {
 }
 
 export const useStore = create<State>()(
-  devtools(redux(produce(withRollback(reducer)), {}), {
+  devtools(redux(produce(withRollback(reducer)), { clients: {} }), {
     enabled: process.env.NODE_ENV === "development" && "window" in globalThis,
   }),
 );

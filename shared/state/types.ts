@@ -52,8 +52,46 @@ export type ConnectAction = BaseAction & {
   type: "connect";
 };
 
-export type State = Record<PropertyKey, any>;
-export type Action = RandomizeAction | SyncAction | ConnectAction;
+export type Pointer = {
+  pointerId: number;
+  pointerType: string;
+  isDown: boolean;
+  x: number;
+  y: number;
+};
+
+export type PointerAction = BaseAction & {
+  payload: Pointer;
+};
+
+export type PointerStartAction = PointerAction & {
+  type: "pointerstart";
+};
+
+export type PointerMoveAction = PointerAction & {
+  type: "pointermove";
+};
+
+export type PointerEndAction = PointerAction & {
+  type: "pointerend";
+};
+
+export type State = Record<PropertyKey, any> & {
+  clients: {
+    [key: PropertyKey]: {
+      pointers: {
+        [key: PropertyKey]: Pointer;
+      };
+    };
+  };
+};
+export type Action =
+  | RandomizeAction
+  | SyncAction
+  | ConnectAction
+  | PointerStartAction
+  | PointerMoveAction
+  | PointerEndAction;
 
 export type Reducer = (state: State, action: Action) => void;
 export type Enhancer = (reducer: Reducer) => Reducer;
