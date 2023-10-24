@@ -1,10 +1,10 @@
-import type { Action, ClientMeta, Json } from "../shared/state/types.js";
+import type { Action, Meta, Json } from "../shared/state/types.js";
 
 let actionIndex = 0;
 export const createAction = (
   type: Action["type"],
   payload?: Json,
-  meta?: ClientMeta,
+  meta?: Meta,
 ): Action => ({
   type,
   payload,

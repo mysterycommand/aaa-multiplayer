@@ -7,6 +7,7 @@ import { negotiate } from "../shared/negotiate.js";
 import type { Action } from "../shared/state/types.js";
 import { broadcast } from "./broadcast.js";
 import { createAction } from "./createAction.js";
+import { store } from "../shared/state/store.js";
 
 const {
   // @ts-expect-error - something funky about these types and/or my build setup
@@ -60,7 +61,7 @@ Evt.from<WebSocket>(wsServer, "connection").attach(async (ws) => {
         );
       }
 
-      broadcast([channel], createAction("sync"));
+      broadcast([channel], createAction("sync", store.getState()));
     },
   );
 });

@@ -1,6 +1,7 @@
 import { Evt } from "evt";
 import { negotiate } from "../shared/negotiate.js";
 import { rtcConfiguration } from "../shared/rtcConfiguration.js";
+import { store } from "../shared/state/store.js";
 import type { Action } from "../shared/state/types.js";
 import { createAction } from "./createAction.js";
 
@@ -31,7 +32,7 @@ Evt.from<Event>(ws, "open").attachOnce(async () => {
 
     try {
       const action: Action = JSON.parse(data);
-      // store.dispatch(action);
+      store.dispatch(action);
       console.log(action);
     } catch (error) {
       console.error(error);
@@ -46,3 +47,5 @@ Evt.from<Event>(ws, "open").attachOnce(async () => {
 
   channel.send(JSON.stringify(createAction("connect")));
 });
+
+Object.defineProperty(window, "store", { value: store });

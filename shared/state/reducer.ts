@@ -7,6 +7,12 @@ export const reducer: Reducer = (state, action) => {
     }
 
     case "connect": {
+      if (!action.meta.clientId) {
+        throw new Error(
+          `"connect" action requires ClientMeta, but got ${action.meta}`,
+        );
+      }
+
       state.clients || (state.clients = {});
       (state.clients as { [key: string]: Json })[action.meta.clientId] = {
         pointers: {},

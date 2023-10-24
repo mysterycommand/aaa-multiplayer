@@ -44,15 +44,15 @@ export type Json =
   | Json[]
   | { [key: string]: Json };
 
-export type SyncAction = ServerAction & {
+export type SyncAction = BaseAction & {
   type: "sync";
 };
 
-export type ConnectAction = ClientAction & {
+export type ConnectAction = BaseAction & {
   type: "connect";
 };
 
-export type State = { [key: string]: Json };
+export type State = Record<PropertyKey, any>;
 export type Action = RandomizeAction | SyncAction | ConnectAction;
 
 export type Reducer = (state: State, action: Action) => void;
