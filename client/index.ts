@@ -17,7 +17,6 @@ const pc = createPeerConnection();
 
 Evt.from<Event>(ws, "open").attachOnce(async () => {
   negotiate(ws, pc, { RTCSessionDescription });
-
   const channel = pc.createDataChannel("aaa-multiplayer");
 
   Evt.merge([
