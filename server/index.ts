@@ -4,6 +4,9 @@ import * as WebRTC from "node-datachannel/polyfill";
 import { rtcConfiguration } from "../shared/rtcConfiguration.js";
 import { Evt } from "evt";
 import { negotiate } from "../shared/negotiate.js";
+import type { Action } from "../shared/state/types.js";
+import { broadcast } from "./broadcast.js";
+import { createAction } from "./createAction.js";
 
 const {
   // @ts-expect-error - something funky about these types and/or my build setup
@@ -28,7 +31,7 @@ Evt.from<WebSocket>(wsServer, "connection").attach(async (ws) => {
   const channels: Set<RTCDataChannel> = new Set();
 
   Evt.from<RTCDataChannelEvent>(pc, "datachannel").attach(
-    ({ type, channel }) => {
+    async ({ type, channel }) => {
       console.log(type, channel.label, channel.readyState);
 
       channels.add(channel);
@@ -39,14 +42,25 @@ Evt.from<WebSocket>(wsServer, "connection").attach(async (ws) => {
       ]).attachOnce(() => channels.delete(channel));
 
       Evt.from<MessageEvent>(channel, "message").attach(({ data }) => {
-        for (const channel of channels) {
-          if (channel.readyState === "open") {
-            channel.send(data);
-          } else {
-            channels.delete(channel);
-          }
+        if (typeof data !== "string") {
+          return;
+        }
+
+        try {
+          const action: Action = JSON.parse(data);
+          broadcast(channels, action);
+        } catch (error) {
+          console.error(error);
         }
       });
+
+      if (channel.readyState !== "open") {
+        await new Promise((resolve) =>
+          Evt.from<Event>(channel, "open").attachOnce(resolve),
+        );
+      }
+
+      channel.send(JSON.stringify(createAction("sync", null)));
     },
   );
 });

@@ -4,7 +4,7 @@ let actionIndex = 0;
 export const createAction = (
   type: Action["type"],
   payload: Json,
-  meta: ClientMeta,
+  meta?: ClientMeta,
 ): Action => ({
   type,
   payload,

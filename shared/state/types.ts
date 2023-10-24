@@ -10,7 +10,7 @@ export type ClientMeta = BaseMeta & {
 };
 
 export type ServerMeta = BaseMeta &
-  Pick<ClientMeta, "clientId" | "clientNow" | "clientActionIndex"> & {
+  Partial<Pick<ClientMeta, "clientId" | "clientNow" | "clientActionIndex">> & {
     source: "server";
     serverNow: number;
     serverActionIndex: number;
