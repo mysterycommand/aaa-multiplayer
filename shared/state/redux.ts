@@ -46,6 +46,7 @@ export const redux: Redux = (reducer, initialState) => (set, _get, api) => {
       false,
       action,
     );
+
     return action;
   };
 

@@ -1,6 +1,7 @@
 import type { Action, Json } from "../shared/state/types.js";
+import { randomHex } from "./randomHex.js";
 
-const clientId = crypto.randomUUID();
+const clientId = randomHex();
 let actionIndex = 0;
 
 export const createAction = (type: Action["type"], payload?: Json): Action => ({
