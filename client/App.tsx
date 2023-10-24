@@ -2,6 +2,7 @@ import { useEffect, type FC, useState } from "react";
 import { useStore } from "./useStore";
 
 export const App: FC = () => {
+  const self = useStore((state) => state.self);
   const clients = useStore((state) => state.clients);
 
   const [[width, height], setSize] = useState([0, 0]);
@@ -22,12 +23,16 @@ export const App: FC = () => {
         {clients &&
           Object.entries(clients).map(([clientId, client]) =>
             Object.entries(client.pointers).map(([pointerId, { x, y }]) => (
-              <circle
+              <path
                 key={`${clientId}:${pointerId}`}
-                cx={x + width / 2}
-                cy={y + height / 2}
-                r={10}
-                fill={`#${clientId}`}
+                transform={[
+                  `translate(${x + width / 2} ${y + height / 2})`,
+                  `rotate(${90 + Math.atan2(-y, -x) * (180 / Math.PI)})`,
+                ].join(" ")}
+                d="M0,0 L8,20 L0,16 L-8,20 Z"
+                fill={clientId === self ? `#${clientId}` : "transparent"}
+                strokeWidth={clientId === self ? 0 : "2px"}
+                stroke={`#${clientId}`}
               />
             )),
           )}
