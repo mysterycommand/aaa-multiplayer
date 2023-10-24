@@ -1,17 +1,18 @@
-import type { Action, Meta, Json } from "../shared/state/types.js";
+import type { Action, Json, Meta, Pointer } from "../shared/state/types.js";
 
 let actionIndex = 0;
-export const createAction = (
+export const createAction = <A extends Action>(
   type: Action["type"],
-  payload?: Json,
+  payload?: Json | Pointer,
   meta?: Meta,
-): Action => ({
-  type,
-  payload,
-  meta: {
-    ...meta,
-    source: "server",
-    serverNow: Date.now(),
-    serverActionIndex: actionIndex++,
-  },
-});
+): Action =>
+  ({
+    type,
+    payload,
+    meta: {
+      ...meta,
+      source: "server",
+      serverNow: Date.now(),
+      serverActionIndex: actionIndex++,
+    },
+  }) as Action; // TODO: fix this type

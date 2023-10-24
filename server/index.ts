@@ -19,6 +19,7 @@ const createPeerConnection = () => new RTCPeerConnection(rtcConfiguration);
 
 const httpServer = createHttpServer();
 const wsServer = createWsServer({ server: httpServer });
+const channels: Set<RTCDataChannel> = new Set();
 
 Evt.from<WebSocket>(wsServer, "connection").attach(async (ws) => {
   if (ws.readyState !== WebSocket.OPEN) {
@@ -29,12 +30,10 @@ Evt.from<WebSocket>(wsServer, "connection").attach(async (ws) => {
 
   const pc = createPeerConnection();
   negotiate(ws, pc, { RTCSessionDescription });
-  const channels: Set<RTCDataChannel> = new Set();
 
   Evt.from<RTCDataChannelEvent>(pc, "datachannel").attach(
     async ({ type, channel }) => {
       console.log(type, channel.label, channel.readyState);
-
       channels.add(channel);
 
       Evt.merge([
@@ -49,6 +48,9 @@ Evt.from<WebSocket>(wsServer, "connection").attach(async (ws) => {
 
         try {
           const action: Action = JSON.parse(data);
+          console.log(
+            `Broadcasting "${action.type}" to ${channels.size} channels`,
+          );
           broadcast(channels, action);
         } catch (error) {
           console.error(error);
