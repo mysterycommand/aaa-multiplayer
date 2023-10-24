@@ -81,7 +81,7 @@ export type PointerEndAction = PointerAction & {
 };
 
 export type State = Record<PropertyKey, any> & {
-  self: string;
+  self?: string;
   clients: {
     [key: PropertyKey]: {
       pointers: {
