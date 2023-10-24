@@ -9,7 +9,7 @@
     /* If your code runs in the DOM: */
     "lib": ["es2022", "dom", "dom.iterable"],
 
-    "types": []
+    "types": ["react", "react-dom"]
   },
   "include": [".", "../shared"]
 }
