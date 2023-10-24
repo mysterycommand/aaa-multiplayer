@@ -24,6 +24,14 @@ export type BaseAction = {
   payload?: Json;
 };
 
+export type ClientAction = BaseAction & {
+  meta: ClientMeta;
+};
+
+export type ServerAction = BaseAction & {
+  meta: ServerMeta;
+};
+
 export type RandomizeAction = BaseAction & {
   type: "randomize";
 };
@@ -36,11 +44,11 @@ export type Json =
   | Json[]
   | { [key: string]: Json };
 
-export type SyncAction = BaseAction & {
+export type SyncAction = ServerAction & {
   type: "sync";
 };
 
-export type ConnectAction = BaseAction & {
+export type ConnectAction = ClientAction & {
   type: "connect";
 };
 
