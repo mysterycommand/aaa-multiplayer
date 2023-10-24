@@ -1,5 +1,5 @@
 import type { Action } from "../shared/state/types.js";
-import { store } from "../shared/state/store.js";
+import { store } from "./store.js";
 import { createAction } from "./createAction.js";
 
 export const broadcast = (

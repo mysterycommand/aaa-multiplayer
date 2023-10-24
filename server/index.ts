@@ -7,7 +7,7 @@ import { negotiate } from "../shared/negotiate.js";
 import type { Action } from "../shared/state/types.js";
 import { broadcast } from "./broadcast.js";
 import { createAction } from "./createAction.js";
-import { store } from "../shared/state/store.js";
+import { store } from "./store.js";
 
 const {
   // @ts-expect-error - something funky about these types and/or my build setup
